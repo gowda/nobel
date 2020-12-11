@@ -28,11 +28,17 @@ const fetch = (offset: number = 0) => {
 };
 
 type Props = State & {
-  done: number;
   onFetch: () => void;
 };
 
-const Component = ({ tab, total, done, needFetch, onFetch }: Props) => {
+const Component = ({
+  tab,
+  total,
+  fetching,
+  doneFetch,
+  needFetch,
+  onFetch,
+}: Props) => {
   useEffect(() => {
     if (needFetch) {
       onFetch();
@@ -41,14 +47,13 @@ const Component = ({ tab, total, done, needFetch, onFetch }: Props) => {
 
   return (
     <div className='container h-100'>
-      {total !== 0 &&
-        ((total !== done && <Progress />) ||
-          (tab ? <TabbedView /> : <Awards />))}
+      {doneFetch && (tab ? <TabbedView /> : <Awards />)}
+      {total !== 0 && fetching && <Progress />}
     </div>
   );
 };
 
-const mapState = (state: State) => ({ ...state, done: state.laureates.length });
+const mapState = (state: State) => state;
 
 const mapDispatch = (dispatch: Dispatch) => {
   return {

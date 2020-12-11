@@ -45,7 +45,7 @@ const Component = ({ total, done }: Props) => {
 
 const mapState = (state: State) => ({
   total: state.total,
-  done: state.laureates.length,
+  done: state.done,
 });
 
 export default connect(mapState)(Component);

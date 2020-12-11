@@ -27,28 +27,15 @@ const Component = ({ items }: Props) => {
   );
 };
 
-const mapState = (state: State): any => {
-  const categoryWise = state.laureates.reduce((acc, laureate) => {
-    const categories: string[] = laureate.nobelPrizes.map(
-      (p: any) => p.category
-    );
-    const includedCategories = Object.getOwnPropertyNames(acc);
-
-    categories.forEach((category: string) => {
-      if (includedCategories.includes(category)) {
-        acc[category] = [...acc[category], laureate];
-      } else {
-        acc[category] = [laureate];
-      }
-    });
-
-    return acc;
-  }, {});
+const mapState = (state: State): Props => {
+  const { categories } = state;
 
   return {
-    items: categoryWise[state.tab!].map((laureate: any) => ({
+    items: categories[state.tab!].map((laureate: any) => ({
       id: laureate.id,
-      name: laureate.fullName,
+      name: laureate.fullName
+        ? laureate.fullName
+        : `${laureate.givenName} ${laureate.familyName}`,
       awards: laureate.nobelPrizes.map((p: any) => p.awardYear).join(','),
     })),
   };

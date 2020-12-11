@@ -37,32 +37,17 @@ const Component = ({ tab, onTabChange, ...rest }: Props) => {
 };
 
 const mapState = (state: State): any => {
-  const categoryWise = state.laureates.reduce((acc, laureate) => {
-    const categories: string[] = laureate.nobelPrizes.map(
-      (p: any) => p.category
-    );
-    const includedCategories = Object.getOwnPropertyNames(acc);
-
-    categories.forEach((category: string) => {
-      if (includedCategories.includes(category)) {
-        acc[category] = [...acc[category], laureate];
-      } else {
-        acc[category] = [laureate];
-      }
-    });
-
-    return acc;
-  }, {});
+  const { tab, categories } = state;
 
   return {
-    ...Object.getOwnPropertyNames(categoryWise).reduce(
-      (acc: any, category: string) => ({
+    ...Object.getOwnPropertyNames(categories).reduce(
+      (acc: any, category) => ({
         ...acc,
-        [category]: categoryWise[category].length,
+        [category]: categories[category].length,
       }),
       {}
     ),
-    tab: state.tab,
+    tab,
   };
 };
 

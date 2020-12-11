@@ -1,9 +1,17 @@
+export type Laureate = any;
+
+interface Laureates {
+  [id: string]: Laureate;
+}
+
 export interface State {
   needFetch: boolean;
   fetching: boolean;
   doneFetch: boolean;
   total: number;
-  laureates: any[];
+  done: number;
+  laureates: Laureates;
+  categories: { [name: string]: Laureate[] };
   tab?: string;
 }
 
@@ -12,7 +20,9 @@ export const initialState: State = {
   fetching: false,
   doneFetch: false,
   total: 0,
-  laureates: [],
+  done: 0,
+  categories: {},
+  laureates: {},
 };
 
 export const FETCHING_LAUREATES = 'FETCHING_LAUREATES';
@@ -28,9 +38,70 @@ export default (state: State = initialState, action: any): State => {
     case RECEIVED_COUNT:
       return { ...state, total: action.payload };
     case RECEIVED_LAUREATES:
-      return { ...state, laureates: [...state.laureates, ...action.payload] };
-    case DONE_FETCHING:
-      return { ...state, needFetch: false, fetching: false, doneFetch: true };
+      return {
+        ...state,
+        done: state.done + action.payload.length,
+        laureates: action.payload.reduce(
+          (acc: Laureates, laureate: Laureate) => ({
+            ...acc,
+            [laureate.id]: laureate,
+          }),
+          { ...state.laureates }
+        ),
+      };
+    case DONE_FETCHING: {
+      const categories = {
+        ...Object.getOwnPropertyNames(state.laureates)
+          .map((id: string) => state.laureates[id])
+          .map((laureate: Laureate) =>
+            laureate.nobelPrizes.map((prize: any) => prize.category)
+          )
+          .reduce((acc: string[], cs: string[]) => [...acc, ...cs], [])
+          .reduce(
+            (acc: any, category: string) => ({
+              ...acc,
+              [category]: acc[category] ? acc[category] + 1 : 1,
+            }),
+            {}
+          ),
+      };
+
+      return {
+        ...state,
+        needFetch: false,
+        fetching: false,
+        doneFetch: true,
+        categories: Object.getOwnPropertyNames(state.laureates).reduce(
+          (acc: any, id: string) => {
+            const laureate = state.laureates[id];
+            const prizesCategories: string[] = Object.getOwnPropertyNames(
+              laureate.nobelPrizes
+                .map((p: any) => p.category)
+                .reduce(
+                  (cacc: any, category: string) => ({
+                    ...cacc,
+                    [category]: true,
+                  }),
+                  {}
+                )
+            );
+
+            prizesCategories.forEach((category: string) => {
+              acc[category] = [...acc[category], laureate];
+            });
+
+            return acc;
+          },
+          Object.getOwnPropertyNames(categories).reduce(
+            (acc: any, category: string) => ({
+              ...acc,
+              [category]: [],
+            }),
+            {}
+          )
+        ),
+      };
+    }
     case TAB_CHANGED:
       return { ...state, tab: action.payload };
     default:
