@@ -1,3 +1,5 @@
+// derived from https://gist.github.com/keeguon/2310008
+
 const countries: { [name: string]: string } = {
   Afghanistan: 'af',
   'Åland Islands': 'ax',
