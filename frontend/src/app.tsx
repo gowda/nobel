@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import normalizeLanguage from './normalize-language';
 import Progress from './progress';
-import Awards from './awards';
+import Overview from './overview';
 import Details from './details';
 
 import {
@@ -47,7 +47,7 @@ const Component = ({
 
   return (
     <div className='container h-100'>
-      {doneFetch && (tab ? <Details /> : <Awards />)}
+      {doneFetch && (tab ? <Details /> : <Overview />)}
       {total !== 0 && fetching && <Progress />}
     </div>
   );
