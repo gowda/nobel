@@ -192,6 +192,7 @@ const countries: { [name: string]: string } = {
   Romania: 'ro',
   'Russian Federation': 'ru',
   Russia: 'ru',
+  USSR: 'ru', // FIXME: use USSR flag
   RWANDA: 'rw',
   'Saint Helena': 'sh',
   'Saint Kitts and Nevis': 'kn',
