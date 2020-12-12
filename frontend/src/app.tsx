@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 import normalizeLanguage from './normalize-language';
 import Progress from './progress';
 import Awards from './awards';
-import TabbedView from './tabbed-view';
+import Details from './details';
 
 import {
   DONE_FETCHING,
@@ -47,7 +47,7 @@ const Component = ({
 
   return (
     <div className='container h-100'>
-      {doneFetch && (tab ? <TabbedView /> : <Awards />)}
+      {doneFetch && (tab ? <Details /> : <Awards />)}
       {total !== 0 && fetching && <Progress />}
     </div>
   );
