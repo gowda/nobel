@@ -37,10 +37,7 @@ const mapState = (
   const { tab, categories } = state;
 
   return {
-    categories: Object.getOwnPropertyNames(categories).map((category) => ({
-      label: category,
-      count: categories[category].length,
-    })),
+    categories,
     selected: tab!,
   };
 };

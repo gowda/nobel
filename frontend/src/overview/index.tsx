@@ -25,10 +25,7 @@ const Component = ({ categories, onClick }: Props) => {
 const mapState = (state: State): { categories: Category[] } => {
   const { categories } = state;
   return {
-    categories: Object.getOwnPropertyNames(categories).map((category) => ({
-      label: category,
-      count: categories[category].length,
-    })),
+    categories,
   };
 };
 

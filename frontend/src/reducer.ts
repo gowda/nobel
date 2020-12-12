@@ -7,6 +7,7 @@ interface Laureates {
 export interface Category {
   label: string;
   count: number;
+  laureates: Laureate[];
 }
 
 export interface State {
@@ -16,7 +17,7 @@ export interface State {
   total: number;
   done: number;
   laureates: Laureates;
-  categories: { [name: string]: Laureate[] };
+  categories: Category[];
   tab?: string;
 }
 
@@ -26,7 +27,7 @@ export const initialState: State = {
   doneFetch: false,
   total: 0,
   done: 0,
-  categories: {},
+  categories: [],
   laureates: {},
 };
 
@@ -35,6 +36,41 @@ export const RECEIVED_COUNT = 'RECEIVED_COUNT';
 export const RECEIVED_LAUREATES = 'RECEIVED_LAUREATES';
 export const DONE_FETCHING = 'DONE_FETCHING';
 export const TAB_CHANGED = 'TAB_CHANGED';
+
+const getCategories = (laureate: Laureate): string[] =>
+  Object.getOwnPropertyNames(
+    laureate.nobelPrizes
+      .map((p: any) => p.category)
+      .reduce(
+        (cacc: any, category: string) => ({
+          ...cacc,
+          [category]: true,
+        }),
+        {}
+      )
+  );
+
+const groupByCategory = (laureates: Laureates): Category[] => {
+  const categories = Object.getOwnPropertyNames(laureates)
+    .map((id: string) => laureates[id])
+    .map((laureate: Laureate) => getCategories(laureate))
+    .reduce((acc: string[], cs: string[]) => [...acc, ...cs], [])
+    .reduce(
+      (acc: any, category: string) => ({
+        ...acc,
+        [category]: acc[category] ? acc[category] + 1 : 1,
+      }),
+      {}
+    );
+
+  return Object.getOwnPropertyNames(categories).map((label: string) => ({
+    label,
+    count: categories[label],
+    laureates: Object.getOwnPropertyNames(laureates)
+      .map((id: string) => laureates[id])
+      .filter((laureate: Laureate) => getCategories(laureate).includes(label)),
+  }));
+};
 
 export default (state: State = initialState, action: any): State => {
   switch (action.type) {
@@ -55,56 +91,12 @@ export default (state: State = initialState, action: any): State => {
         ),
       };
     case DONE_FETCHING: {
-      const categories = {
-        ...Object.getOwnPropertyNames(state.laureates)
-          .map((id: string) => state.laureates[id])
-          .map((laureate: Laureate) =>
-            laureate.nobelPrizes.map((prize: any) => prize.category)
-          )
-          .reduce((acc: string[], cs: string[]) => [...acc, ...cs], [])
-          .reduce(
-            (acc: any, category: string) => ({
-              ...acc,
-              [category]: acc[category] ? acc[category] + 1 : 1,
-            }),
-            {}
-          ),
-      };
-
       return {
         ...state,
         needFetch: false,
         fetching: false,
         doneFetch: true,
-        categories: Object.getOwnPropertyNames(state.laureates).reduce(
-          (acc: any, id: string) => {
-            const laureate = state.laureates[id];
-            const prizesCategories: string[] = Object.getOwnPropertyNames(
-              laureate.nobelPrizes
-                .map((p: any) => p.category)
-                .reduce(
-                  (cacc: any, category: string) => ({
-                    ...cacc,
-                    [category]: true,
-                  }),
-                  {}
-                )
-            );
-
-            prizesCategories.forEach((category: string) => {
-              acc[category] = [...acc[category], laureate];
-            });
-
-            return acc;
-          },
-          Object.getOwnPropertyNames(categories).reduce(
-            (acc: any, category: string) => ({
-              ...acc,
-              [category]: [],
-            }),
-            {}
-          )
-        ),
+        categories: groupByCategory(state.laureates),
       };
     }
     case TAB_CHANGED:
