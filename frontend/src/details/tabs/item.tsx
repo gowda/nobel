@@ -1,11 +1,10 @@
 import React from 'react';
+import { Category } from '../../reducer';
 
-interface Props {
-  label: string;
-  count: number;
+type Props = Category & {
   active: boolean;
   onClick: () => void;
-}
+};
 
 export default ({ label, count, active, onClick }: Props) => {
   return (

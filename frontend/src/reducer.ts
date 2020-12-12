@@ -4,6 +4,11 @@ interface Laureates {
   [id: string]: Laureate;
 }
 
+export interface Category {
+  label: string;
+  count: number;
+}
+
 export interface State {
   needFetch: boolean;
   fetching: boolean;

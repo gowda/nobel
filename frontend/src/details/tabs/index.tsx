@@ -4,12 +4,7 @@ import { Dispatch } from 'redux';
 
 import Item from './item';
 
-import { State, TAB_CHANGED } from '../../reducer';
-
-interface Category {
-  label: string;
-  count: number;
-}
+import { Category, State, TAB_CHANGED } from '../../reducer';
 
 interface Props {
   selected: string;
