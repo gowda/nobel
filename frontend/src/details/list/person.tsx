@@ -2,7 +2,7 @@ import React from 'react';
 import { Laureate } from '../../reducer';
 
 import Icon from './icon';
-import Country from './country';
+import DateAndPlace from './date-and-place';
 
 interface Props {
   item: Laureate;
@@ -22,13 +22,24 @@ export default ({ item }: Props) => (
       </div>
       <div className='row'>
         <div className='col-auto'>
-          <Country label='Country of birth' country={item.country} />
+          <DateAndPlace
+            label='Born'
+            date={item.birth.date}
+            place={{
+              label: item.birth.place.locationString,
+              country: item.country,
+            }}
+          />
         </div>
         {item.death ? (
           <div className='col-auto'>
-            <Country
-              label='Country of death'
-              country={item.death.place.countryNow}
+            <DateAndPlace
+              label='Died'
+              date={item.death.date}
+              place={{
+                label: item.death.place.locationString,
+                country: item.death.place.country,
+              }}
             />
           </div>
         ) : (

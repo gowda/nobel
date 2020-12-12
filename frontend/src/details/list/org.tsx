@@ -2,7 +2,7 @@ import React from 'react';
 import { Laureate } from '../../reducer';
 
 import Icon from './icon';
-import Country from './country';
+import DateAndPlace from './date-and-place';
 
 interface Props {
   item: Laureate;
@@ -20,11 +20,22 @@ export default ({ item }: Props) => (
         </div>
         <div className='col-auto'>{item.awards}</div>
       </div>
-      <div className='row'>
-        <div className='col-auto'>
-          <Country label='Founded in' country={item.country} />
+      {item.founded && (
+        <div className='row'>
+          <div className='col-auto'>
+            <DateAndPlace
+              label='Founded'
+              date={item.founded.date}
+              place={{
+                label: item.founded.place
+                  ? item.founded.place.locationString
+                  : 'Not available',
+                country: item.country,
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   </div>
 );
