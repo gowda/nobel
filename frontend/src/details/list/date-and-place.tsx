@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Flag from './flag';
-import countries from './countries';
 
 interface Props {
   label: string;
@@ -25,9 +24,7 @@ export default ({ label, date, place }: Props) => (
           <div className='col-auto pr-0'>
             <Flag country={place.country} />
           </div>
-          <div className='pl-1 col-auto'>
-            {place.country} ({countries[place.country]})
-          </div>
+          <div className='pl-1 col-auto'>{place.label}</div>
         </div>
       )}
     </div>
