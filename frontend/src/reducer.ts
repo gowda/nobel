@@ -42,38 +42,32 @@ export const RECEIVED_LAUREATES = 'RECEIVED_LAUREATES';
 export const DONE_FETCHING = 'DONE_FETCHING';
 export const TAB_CHANGED = 'TAB_CHANGED';
 
-const getCategories = (laureate: Laureate): string[] =>
-  Object.getOwnPropertyNames(
-    laureate.nobelPrizes
-      .map((p: any) => p.category)
-      .reduce(
-        (cacc: any, category: string) => ({
-          ...cacc,
-          [category]: true,
-        }),
-        {}
-      )
+const groupBy = (arr: any[], func: Function) =>
+  arr.reduce(
+    (acc: any, element: any) => ({
+      ...acc,
+      [func(element)]: [...(acc[func(element)] || []), element],
+    }),
+    {}
   );
 
-const groupByCategory = (laureates: Laureates): Category[] => {
-  const categories = Object.getOwnPropertyNames(laureates)
-    .map((id: string) => laureates[id])
-    .map((laureate: Laureate) => getCategories(laureate))
-    .reduce((acc: string[], cs: string[]) => [...acc, ...cs], [])
-    .reduce(
-      (acc: any, category: string) => ({
-        ...acc,
-        [category]: acc[category] ? acc[category] + 1 : 1,
-      }),
-      {}
-    );
+const merge = (arr1: any[], arr2: any[]) => {
+  const denormalized = groupBy(
+    [...arr1, ...arr2],
+    (element: any) => element.label
+  );
+  const keys = Object.getOwnPropertyNames(denormalized);
 
-  return Object.getOwnPropertyNames(categories).map((label: string) => ({
-    label,
-    count: categories[label],
-    laureates: Object.getOwnPropertyNames(laureates)
-      .map((id: string) => laureates[id])
-      .filter((laureate: Laureate) => getCategories(laureate).includes(label)),
+  return keys.map((key: string) => ({
+    label: key,
+    count: (denormalized[key] as any[]).reduce(
+      (acc: number, { count }) => acc + count,
+      0
+    ),
+    laureates: (denormalized[key] as any[]).reduce(
+      (acc: any[], { laureates }) => [...acc, ...laureates],
+      []
+    ),
   }));
 };
 
@@ -86,8 +80,11 @@ export default (state: State = initialState, action: any): State => {
     case RECEIVED_LAUREATES:
       return {
         ...state,
-        done: state.done + Object.getOwnPropertyNames(action.payload).length,
-        laureates: { ...state.laureates, ...action.payload },
+        done:
+          state.done +
+          Object.getOwnPropertyNames(action.payload.laureates).length,
+        laureates: { ...state.laureates, ...action.payload.laureates },
+        categories: merge(state.categories, action.payload.categories),
       };
     case DONE_FETCHING: {
       return {
@@ -95,7 +92,6 @@ export default (state: State = initialState, action: any): State => {
         needFetch: false,
         fetching: false,
         doneFetch: true,
-        categories: groupByCategory(state.laureates),
       };
     }
     case TAB_CHANGED:

@@ -50,16 +50,27 @@ const mapDispatch = (dispatch: Dispatch) => {
       dispatch({ type: FETCHING_LAUREATES });
 
       return fetch()
-        .then((data) => [data.laureates, data.meta])
-        .then(([laureates, { limit, count }]) => {
+        .then((data) => [data.laureates, data.categories, data.meta])
+        .then(([laureates, categories, { limit, count }]) => {
           dispatch({ type: RECEIVED_COUNT, payload: count });
-          dispatch({ type: RECEIVED_LAUREATES, payload: laureates });
+          dispatch({
+            type: RECEIVED_LAUREATES,
+            payload: { laureates, categories },
+          });
 
           return Promise.all(
             [...Array(Math.floor(count / limit)).keys()].map((_, index) =>
-              fetch((index + 1) * limit).then((data) => {
-                dispatch({ type: RECEIVED_LAUREATES, payload: data.laureates });
-              })
+              fetch((index + 1) * limit).then(
+                ({ laureates: ilaureates, categories: icategories }) => {
+                  dispatch({
+                    type: RECEIVED_LAUREATES,
+                    payload: {
+                      laureates: ilaureates,
+                      categories: icategories,
+                    },
+                  });
+                }
+              )
             )
           );
         })
