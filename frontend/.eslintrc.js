@@ -13,5 +13,6 @@ module.exports = {
         devDependencies: true,
       },
     ],
+    '@typescript-eslint/indent': 'off',
   },
 };
