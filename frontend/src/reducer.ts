@@ -1,3 +1,5 @@
+import merge from './utils/merge';
+
 export interface Laureate {
   name: string;
   awards: string[];
@@ -41,35 +43,6 @@ export const RECEIVED_COUNT = 'RECEIVED_COUNT';
 export const RECEIVED_LAUREATES = 'RECEIVED_LAUREATES';
 export const DONE_FETCHING = 'DONE_FETCHING';
 export const TAB_CHANGED = 'TAB_CHANGED';
-
-const groupBy = (arr: any[], func: Function) =>
-  arr.reduce(
-    (acc: any, element: any) => ({
-      ...acc,
-      [func(element)]: [...(acc[func(element)] || []), element],
-    }),
-    {}
-  );
-
-const merge = (arr1: any[], arr2: any[]) => {
-  const denormalized = groupBy(
-    [...arr1, ...arr2],
-    (element: any) => element.label
-  );
-  const keys = Object.getOwnPropertyNames(denormalized);
-
-  return keys.map((key: string) => ({
-    label: key,
-    count: (denormalized[key] as any[]).reduce(
-      (acc: number, { count }) => acc + count,
-      0
-    ),
-    laureates: (denormalized[key] as any[]).reduce(
-      (acc: any[], { laureates }) => [...acc, ...laureates],
-      []
-    ),
-  }));
-};
 
 export default (state: State = initialState, action: any): State => {
   switch (action.type) {
