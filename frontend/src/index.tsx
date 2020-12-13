@@ -4,8 +4,23 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { applyMiddleware, compose, createStore, Middleware } from 'redux';
 
-import reducer, { initialState, State } from './reducer';
+import reducer, { State } from './reducer';
 import App from './app';
+
+const initialState: State = {
+  fetching: {
+    required: true,
+    happening: false,
+    complete: false,
+  },
+  meta: {
+    total: 0,
+    fetched: 0,
+  },
+  laureates: {},
+  categories: [],
+  tab: null,
+};
 
 const stateString = window.localStorage.getItem('state');
 const state = stateString ? JSON.parse(stateString) : initialState;

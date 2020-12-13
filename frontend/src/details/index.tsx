@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Tabs from './tabs';
-import { Laureate, State } from '../reducer';
+import { State } from '../reducer';
+import { Laureate } from '../reducer/types';
 import List from './list';
 
 interface Props {

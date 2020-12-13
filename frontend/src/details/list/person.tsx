@@ -1,5 +1,5 @@
 import React from 'react';
-import { Laureate } from '../../reducer';
+import { Laureate } from '../../reducer/types';
 
 import Icon from './icon';
 import DateAndPlace from './date-and-place';

@@ -6,10 +6,10 @@ import { State } from './reducer';
 
 interface Props {
   total: number;
-  done: number;
+  fetched: number;
 }
 
-const Component = ({ total, done }: Props) => {
+const Component = ({ total, fetched }: Props) => {
   return (
     <div className='container h-100'>
       {total !== 0 && (
@@ -18,7 +18,7 @@ const Component = ({ total, done }: Props) => {
             <div className='col'>
               <h4>
                 {`${
-                  done === total ? 'Fetched' : `Fetching ${done} of`
+                  fetched === total ? 'Fetched' : `Fetching ${fetched} of`
                 } ${total}`}
               </h4>
             </div>
@@ -29,8 +29,8 @@ const Component = ({ total, done }: Props) => {
                 <div
                   className='progress-bar'
                   role='progressbar'
-                  style={{ width: `${(done * 100) / total}%` }}
-                  aria-valuenow={done}
+                  style={{ width: `${(fetched * 100) / total}%` }}
+                  aria-valuenow={fetched}
                   aria-valuemin={0}
                   aria-valuemax={total}
                 />
@@ -44,8 +44,7 @@ const Component = ({ total, done }: Props) => {
 };
 
 const mapState = (state: State) => ({
-  total: state.total,
-  done: state.done,
+  ...state.meta,
 });
 
 export default connect(mapState)(Component);

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import Card from './card';
-import { Category, State, TAB_CHANGED } from '../reducer';
+import { State } from '../reducer';
+import { Category, TAB_CHANGED } from '../reducer/types';
 
 interface Props {
   categories: Category[];

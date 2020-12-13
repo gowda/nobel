@@ -1,5 +1,5 @@
 import React from 'react';
-import { Laureate } from '../../reducer';
+import { Laureate } from '../../reducer/types';
 
 import Person from './person';
 import Org from './org';

@@ -13,31 +13,24 @@ import {
   FETCHING_LAUREATES,
   RECEIVED_COUNT,
   RECEIVED_LAUREATES,
-  State,
-} from './reducer';
+} from './reducer/types';
+import { State } from './reducer';
 
 type Props = State & {
   onFetch: () => void;
 };
 
-const Component = ({
-  tab,
-  total,
-  fetching,
-  doneFetch,
-  needFetch,
-  onFetch,
-}: Props) => {
+const Component = ({ tab, meta, fetching, onFetch }: Props) => {
   useEffect(() => {
-    if (needFetch) {
+    if (fetching.required) {
       onFetch();
     }
-  }, [needFetch]);
+  }, [fetching]);
 
   return (
     <div className='container h-100'>
-      {doneFetch && (tab ? <Details /> : <Overview />)}
-      {total !== 0 && fetching && <Progress />}
+      {fetching.complete && (tab ? <Details /> : <Overview />)}
+      {meta.total !== 0 && fetching.happening && <Progress />}
     </div>
   );
 };
