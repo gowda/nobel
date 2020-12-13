@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import normalizeLanguage from './normalize-language';
+
 import Progress from './progress';
 import Overview from './overview';
 import Details from './details';
+
+import fetch from './fetch';
 
 import {
   DONE_FETCHING,
@@ -14,18 +15,6 @@ import {
   RECEIVED_LAUREATES,
   State,
 } from './reducer';
-
-const fetch = (offset: number = 0) => {
-  return axios
-    .get(`https://api.nobelprize.org/2.0/laureates?limit=25&offset=${offset}`)
-    .then((response) => response.data)
-    .then(({ laureates, ...rest }) => ({
-      ...rest,
-      laureates: (laureates as any[]).map((laureate) =>
-        normalizeLanguage(laureate)
-      ),
-    }));
-};
 
 type Props = State & {
   onFetch: () => void;
