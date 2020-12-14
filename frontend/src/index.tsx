@@ -19,7 +19,6 @@ const initialState: State = {
   },
   laureates: {},
   categories: [],
-  tab: null,
 };
 
 const stateString = window.localStorage.getItem('state');

@@ -1,50 +1,55 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
+import { Route } from 'react-router-dom';
 
 import Item from './item';
 
-import { Category, TAB_CHANGED } from '../../reducer/types';
+import { Category } from '../../reducer/types';
 import { State } from '../../reducer';
 
 interface Props {
-  selected: string;
   categories: Category[];
-  onClick: (key: string) => void;
 }
 
-const Component = ({ selected, categories, onClick }: Props) => {
+const Component = ({ categories }: Props) => {
   return (
     <div className='row mt-4'>
       <div className='col'>
-        <ul className='nav nav-tabs justify-content-center'>
-          {categories.map(({ label, count }) => (
-            <Item
-              label={label}
-              count={count}
-              active={label === selected}
-              onClick={() => onClick(label)}
-            />
-          ))}
-        </ul>
+        <Route
+          render={({ location, history }) => {
+            const params = new URLSearchParams(location.search);
+            const selected = params.get('tab');
+
+            return (
+              <ul className='nav nav-tabs justify-content-center'>
+                {categories.map(({ label, count }) => (
+                  <Item
+                    key={label}
+                    label={label}
+                    count={count}
+                    active={label.toLowerCase().replace(/ /g, '-') === selected}
+                    onClick={() =>
+                      history.push(
+                        `?tab=${label.toLowerCase().replace(/ /g, '-')}`
+                      )
+                    }
+                  />
+                ))}
+              </ul>
+            );
+          }}
+        />
       </div>
     </div>
   );
 };
 
-const mapState = (
-  state: State
-): { categories: Category[]; selected: string } => {
-  const { tab, categories } = state;
+const mapState = (state: State): { categories: Category[] } => {
+  const { categories } = state;
 
   return {
     categories,
-    selected: tab!,
   };
 };
 
-const mapDispatch = (dispatch: Dispatch) => ({
-  onClick: (key: string) => dispatch({ type: TAB_CHANGED, payload: key }),
-});
-
-export default connect(mapState, mapDispatch)(Component);
+export default connect(mapState)(Component);

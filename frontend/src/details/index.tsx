@@ -7,9 +7,15 @@ import { State } from '../reducer';
 import { Laureate } from '../reducer/types';
 import List from './list';
 
-interface Props {
+interface OwnProps {
+  selected: string;
+}
+
+interface StateProps {
   items: Laureate[];
 }
+
+type Props = OwnProps & StateProps;
 
 const Component = ({ items }: Props) => {
   return (
@@ -24,11 +30,13 @@ const Component = ({ items }: Props) => {
   );
 };
 
-const mapState = (state: State): Props => {
+const mapState = (state: State, { selected }: OwnProps): StateProps => {
   const { categories } = state;
 
   return {
-    items: categories.find((c) => c.label === state.tab!)!.laureates,
+    items: categories.find(
+      (c) => c.label.toLowerCase().replace(/ /g, '-') === selected
+    )!.laureates,
   };
 };
 

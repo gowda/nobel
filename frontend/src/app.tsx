@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Progress from './progress';
 import Overview from './overview';
@@ -20,7 +21,7 @@ type Props = State & {
   onFetch: () => void;
 };
 
-const Component = ({ tab, meta, fetching, onFetch }: Props) => {
+const Component = ({ meta, fetching, onFetch }: Props) => {
   useEffect(() => {
     if (fetching.required) {
       onFetch();
@@ -29,8 +30,23 @@ const Component = ({ tab, meta, fetching, onFetch }: Props) => {
 
   return (
     <div className='container h-100'>
-      {fetching.complete && (tab ? <Details /> : <Overview />)}
-      {meta.total !== 0 && fetching.happening && <Progress />}
+      <Router>
+        <Switch>
+          <Route
+            path='/list'
+            render={({ location }) => {
+              const params = new URLSearchParams(location.search);
+              const selected = params.get('tab')!;
+
+              return <Details selected={selected} />;
+            }}
+          />
+          <Route path='/'>
+            {fetching.complete && <Overview />}
+            {meta.total !== 0 && fetching.happening && <Progress />}
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 };

@@ -23,6 +23,7 @@ export default ({ item }: Props) => (
       </div>
       {item.nobelPrizes.map((prize: any) => (
         <Award
+          key={prize.awardYear}
           year={prize.awardYear}
           country={
             prize.affiliations ? prize.affiliations[0].countryNow : undefined

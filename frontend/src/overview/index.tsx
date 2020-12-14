@@ -1,22 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 
 import Card from './card';
 import { State } from '../reducer';
-import { Category, TAB_CHANGED } from '../reducer/types';
+import { Category } from '../reducer/types';
 
 interface Props {
   categories: Category[];
-  onClick: (key: string) => void;
 }
 
-const Component = ({ categories, onClick }: Props) => {
+const Component = ({ categories }: Props) => {
   return (
     <div className='row align-items-stretch justify-content-center'>
       {categories.map(({ label, count }) => (
         <div className='col' key={label}>
-          <Card label={label} count={count} onClick={() => onClick(label)} />
+          <Card label={label} count={count} />
         </div>
       ))}
     </div>
@@ -30,8 +28,4 @@ const mapState = (state: State): { categories: Category[] } => {
   };
 };
 
-const mapDispatch = (dispatch: Dispatch) => ({
-  onClick: (key: string) => dispatch({ type: TAB_CHANGED, payload: key }),
-});
-
-export default connect(mapState, mapDispatch)(Component);
+export default connect(mapState)(Component);

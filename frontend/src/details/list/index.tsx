@@ -10,7 +10,7 @@ interface Props {
 export default ({ items }: Props) => (
   <ul className='list-group'>
     {items.map((item) => (
-      <Item item={item} />
+      <Item item={item} key={item.id} />
     ))}
   </ul>
 );
