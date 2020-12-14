@@ -34,9 +34,7 @@ const mapState = (state: State, { selected }: OwnProps): StateProps => {
   const { categories } = state;
 
   return {
-    items: categories.find(
-      (c) => c.label.toLowerCase().replace(/ /g, '-') === selected
-    )!.laureates,
+    items: categories.find((c) => c.id === selected)!.laureates,
   };
 };
 

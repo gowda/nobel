@@ -15,6 +15,7 @@ export default (arr1: any[], arr2: any[]) => {
   const keys = Object.getOwnPropertyNames(denormalized);
 
   return keys.map((key: string) => ({
+    id: key.toLowerCase().replace(/ /g, '-'),
     label: key,
     count: (denormalized[key] as any[]).reduce(
       (acc: number, { count }) => acc + count,

@@ -22,17 +22,13 @@ const Component = ({ categories }: Props) => {
 
             return (
               <ul className='nav nav-tabs justify-content-center'>
-                {categories.map(({ label, count }) => (
+                {categories.map(({ id, label, count }) => (
                   <Item
-                    key={label}
+                    key={id}
                     label={label}
                     count={count}
-                    active={label.toLowerCase().replace(/ /g, '-') === selected}
-                    onClick={() =>
-                      history.push(
-                        `?tab=${label.toLowerCase().replace(/ /g, '-')}`
-                      )
-                    }
+                    active={id === selected}
+                    onClick={() => history.push(`?tab=${id}`)}
                   />
                 ))}
               </ul>

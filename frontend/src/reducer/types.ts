@@ -10,6 +10,7 @@ export interface Laureates {
 }
 
 export interface Category {
+  id: string;
   label: string;
   count: number;
   laureates: Laureate[];

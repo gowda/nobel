@@ -12,9 +12,9 @@ interface Props {
 const Component = ({ categories }: Props) => {
   return (
     <div className='row align-items-stretch justify-content-center'>
-      {categories.map(({ label, count }) => (
+      {categories.map(({ id, label, count }) => (
         <div className='col' key={label}>
-          <Card label={label} count={count} />
+          <Card id={id} label={label} count={count} />
         </div>
       ))}
     </div>

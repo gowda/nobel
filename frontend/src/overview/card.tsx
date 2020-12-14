@@ -3,11 +3,12 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 interface Props {
+  id: string;
   label: string;
   count: number;
 }
 
-export default ({ label, count }: Props) => (
+export default ({ id, label, count }: Props) => (
   <Route
     render={({ history }) => (
       <div
@@ -15,12 +16,8 @@ export default ({ label, count }: Props) => (
         tabIndex={-1}
         className='card mt-4'
         style={{ width: '18rem' }}
-        onClick={() =>
-          history.push(`/list?tab=${label.toLowerCase().replace(/ /g, '-')}`)
-        }
-        onKeyPress={() =>
-          history.push(`/list?tab=${label.toLowerCase().replace(/ /g, '-')}`)
-        }
+        onClick={() => history.push(`/list?tab=${id}`)}
+        onKeyPress={() => history.push(`/list?tab=${id}`)}
       >
         <div className='card-body'>
           <h5 className='card-title'>{label}</h5>
