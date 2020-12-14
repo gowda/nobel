@@ -9,14 +9,11 @@ const config: Configuration = merge(common, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'dist/'),
-    port: 3000,
+    port: 3001,
     publicPath: 'http://localhost:3000/',
     hotOnly: true,
   },
-  plugins: [
-    new HotModuleReplacementPlugin(),
-    new WriteFilePlugin(),
-  ],
+  plugins: [new HotModuleReplacementPlugin(), new WriteFilePlugin()],
 });
 
 export default config;
