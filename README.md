@@ -2,7 +2,7 @@
 ![](https://github.com/gowda/nobel-prizes/workflows/rubocop/badge.svg)
 ![](https://github.com/gowda/nobel-prizes/workflows/eslint/badge.svg)
 
-list of nobel laureates
+light-weight web interface for browsing through nobel prize winners list
 
 ## Usage
 ### Setup & install dependencies

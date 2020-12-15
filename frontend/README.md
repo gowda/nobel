@@ -1,9 +1,4 @@
-# react.ts.template
-
-![](https://github.com/gowda/nobel/workflows/lint-and-tests/badge.svg)
-![](https://github.com/gowda/nobel/workflows/features/badge.svg)
-
-light-weight web interface for browsing through nobel prize winners list
+![](https://github.com/gowda/nobel-prizes/workflows/eslint/badge.svg)
 
 ## Usage
 
