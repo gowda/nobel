@@ -4,15 +4,18 @@ require 'rack/proxy'
 
 class ProxyToFrontend < Rack::Proxy
   def initialize(app)
+    super
     @app = app
   end
 
   def call(env)
-    env['HTTP_HOST'] = "localhost:#{ENV['FRONTEND_PORT']}"
-    unless env['PATH_INFO'] =~ /(bundle\.js$)|(^\/css)|(hot-update\.json$)/
-      env['PATH_INFO'] = '/'
-    end
+    if env['PATH_INFO'] =~ %r{^/api/}
+      @app.call(env)
+    else
+      env['HTTP_HOST'] = "localhost:#{ENV['FRONTEND_PORT']}"
+      env['PATH_INFO'] = '/' unless env['PATH_INFO'] =~ %r{(bundle\.js$)|(^/css)|(hot-update\.json$)}
 
-    perform_request(env)
+      perform_request(env)
+    end
   end
 end
