@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 interface Props {
+  id: string;
   label: string;
   count: number;
-  active: boolean;
-  onClick: () => void;
 }
 
-export default ({ label, count, active, onClick }: Props) => {
+const useQueryParams = () => {
+  return new URLSearchParams(useLocation().search);
+};
+
+export default ({ id, label, count }: Props) => {
+  const params = useQueryParams();
+  const [active, setActive] = useState<boolean>(false);
+
+  useEffect(() => {
+    setActive(params.get('tab') === id);
+  }, [params]);
+
   return (
     <li className='nav-item mr-1' key={label}>
-      <button
-        type='button'
+      <Link
+        to={`?tab=${id}`}
         className={`btn nav-link shadow-none ${
           active ? 'active' : 'btn-secondary inactive'
         }`}
-        onClick={() => onClick()}
       >
         {label} - {count}
-      </button>
+      </Link>
     </li>
   );
 };
