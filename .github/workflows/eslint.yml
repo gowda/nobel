@@ -19,6 +19,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: npm -C frontend ci
+      - run: npm --prefix frontend ci
       - name: Linter
-        run: npm -C frontend run lint
+        run: npm --prefix frontend run lint
