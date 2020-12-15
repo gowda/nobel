@@ -16,7 +16,7 @@ $ npm install
 #### Run development server
 
 ```
-$ npm run server
+$ FRONTEND_PORT=3000 npm start
 ```
 
 Development server listens at [http://localhost:3000](http://localhost:3000).

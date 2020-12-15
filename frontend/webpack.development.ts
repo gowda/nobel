@@ -9,8 +9,8 @@ const config: Configuration = merge(common, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'dist/'),
-    port: 3001,
-    publicPath: 'http://localhost:3000/',
+    port: Number(process.env.FRONTEND_PORT),
+    publicPath: `http://localhost:${process.env.PORT}/`,
     hotOnly: true,
   },
   plugins: [new HotModuleReplacementPlugin(), new WriteFilePlugin()],

@@ -8,7 +8,7 @@ class ProxyToFrontend < Rack::Proxy
   end
 
   def call(env)
-    env['HTTP_HOST'] = 'localhost:3001'
+    env['HTTP_HOST'] = "localhost:#{ENV['FRONTEND_PORT']}"
     unless env['PATH_INFO'] =~ /(bundle\.js$)|(^\/css)|(hot-update\.json$)/
       env['PATH_INFO'] = '/'
     end
