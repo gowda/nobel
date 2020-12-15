@@ -1,4 +1,4 @@
-name: lint-and-tests
+name: eslint
 
 on: [push]
 
@@ -10,7 +10,7 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v2
         with:
-          path: '**/node_modules'
+          path: 'frontend/**/node_modules'
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node_modules-
@@ -19,8 +19,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: npm ci
+      - run: npm -C frontend ci
       - name: Linter
-        run: npm run lint
-      - name: Tests
-        run: npm run test
+        run: npm -C frontend run lint
