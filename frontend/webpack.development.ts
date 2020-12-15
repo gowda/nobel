@@ -10,7 +10,7 @@ const config: Configuration = merge(common, {
   devServer: {
     contentBase: path.join(__dirname, 'dist/'),
     port: Number(process.env.FRONTEND_PORT),
-    publicPath: `http://localhost:${process.env.PORT}/`,
+    publicPath: `http://localhost:${process.env.BACKEND_PORT}/`,
     hotOnly: true,
   },
   plugins: [new HotModuleReplacementPlugin(), new WriteFilePlugin()],

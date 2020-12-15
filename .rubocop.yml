@@ -72,6 +72,7 @@ AllCops:
     - 'bin/**/*'
     - 'vendor/**/*'
     - 'frontend/**/*'
+    - 'db/schema.rb'
 
 Style/Documentation:
   Enabled: false

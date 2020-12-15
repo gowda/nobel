@@ -1,5 +1,5 @@
 {
-  "name": "nobel",
+  "name": "nobel-prizes",
   "version": "0.42.0",
   "description": "light-weight web interface for browsing through nobel prize winners list",
   "main": "src/index.ts",
@@ -12,7 +12,7 @@
     "test": "jest"
   },
   "keywords": [],
-  "repository": "github:gowda/nobel",
+  "repository": "github:gowda/nobel-prizes",
   "author": "Basavanagowda Kanur <basavanagowda@gmail.com>",
   "license": "Beerware",
   "devDependencies": {
