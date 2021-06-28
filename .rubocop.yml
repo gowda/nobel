@@ -68,6 +68,7 @@ Rails/WhereNot: # (new in 2.8)
 
 # custom
 AllCops:
+  NewCops: disable
   Exclude:
     - 'bin/**/*'
     - 'vendor/**/*'
