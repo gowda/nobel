@@ -74,4 +74,32 @@ RSpec.describe Prize, type: :model do
       it { should_not be_valid }
     end
   end
+
+  describe 'laureates' do
+    context 'when none present' do
+      it 'should be empty' do
+        expect(subject.laureates).to be_empty
+      end
+    end
+
+    context 'when present' do
+      before do
+        laureate = Laureate.create!(
+          remote_id: 'test_id',
+          name: 'Test laureate',
+          link: 'http://example.org/nobel/test-laureate',
+          person: true
+        )
+        Award.create!(
+          motivation: 'Test motivation',
+          prize: @prize,
+          laureate: laureate
+        )
+      end
+
+      it 'should not be empty' do
+        expect(subject.laureates).not_to be_empty
+      end
+    end
+  end
 end

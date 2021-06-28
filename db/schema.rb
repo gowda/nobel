@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_110312) do
+ActiveRecord::Schema.define(version: 2021_06_28_114302) do
+
+  create_table "awards", force: :cascade do |t|
+    t.string "motivation"
+    t.string "portion", default: "1"
+    t.integer "sort_order", default: 1
+    t.integer "prize_id", null: false
+    t.integer "laureate_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["laureate_id"], name: "index_awards_on_laureate_id"
+    t.index ["prize_id"], name: "index_awards_on_prize_id"
+  end
 
   create_table "categories", primary_key: "cid", id: { type: :string, limit: 64 }, force: :cascade do |t|
     t.string "name"
@@ -38,5 +50,7 @@ ActiveRecord::Schema.define(version: 2021_06_28_110312) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "awards", "laureates"
+  add_foreign_key "awards", "prizes"
   add_foreign_key "prizes", "categories", primary_key: "cid"
 end

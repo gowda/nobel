@@ -7,6 +7,9 @@ class Laureate < ApplicationRecord
   validate :org_or_person_is_true
   validate :org_and_person_not_false
 
+  has_many :awards, dependent: :destroy
+  has_many :prizes, through: :awards
+
   private
 
   def org_or_person_is_true

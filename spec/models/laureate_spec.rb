@@ -61,4 +61,33 @@ RSpec.describe Laureate, type: :model do
       it { should_not be_valid }
     end
   end
+
+  describe 'prize' do
+    context 'when none present' do
+      it 'should be empty' do
+        expect(subject.prizes).to be_empty
+      end
+    end
+
+    context 'when present' do
+      before do
+        category = Category.create!(name: 'Test category', short: 'Test')
+        prize = Prize.new(
+          year: '2020',
+          amount: 420_420,
+          link: 'http://example.org/nobel/2020',
+          category: category
+        )
+        Award.create!(
+          motivation: 'Test motivation',
+          prize: prize,
+          laureate: @laureate
+        )
+      end
+
+      it 'should not be empty' do
+        expect(subject.prizes).not_to be_empty
+      end
+    end
+  end
 end

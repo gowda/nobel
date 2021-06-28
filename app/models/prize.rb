@@ -6,4 +6,7 @@ class Prize < ApplicationRecord
   validates :link, presence: true, allow_nil: true
 
   belongs_to :category
+
+  has_many :awards, dependent: :destroy
+  has_many :laureates, through: :awards
 end
