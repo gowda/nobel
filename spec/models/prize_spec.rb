@@ -2,12 +2,12 @@
 
 describe Prize, type: :model do
   before do
-    category = Category.create!(name: 'Test category', short: 'Test')
+    @category = Category.create!(name: 'Test category', short: 'Test')
     @prize = Prize.new(
       year: '2020',
       amount: 420_420,
       link: 'http://example.org/nobel/2020',
-      category: category
+      category: @category
     )
   end
 
@@ -26,6 +26,23 @@ describe Prize, type: :model do
 
     context 'when nil' do
       before { @prize.year = nil }
+
+      it { should_not be_valid }
+    end
+
+    context 'uniqueness' do
+      before do
+        @prize.save!
+
+        @prize = Prize.new(
+          year: '2020',
+          amount: 420_420,
+          link: 'http://example.org/nobel/2020',
+          category: @category
+        )
+      end
+
+      subject { @prize }
 
       it { should_not be_valid }
     end

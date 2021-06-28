@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_114302) do
+ActiveRecord::Schema.define(version: 2021_06_28_195329) do
 
   create_table "awards", force: :cascade do |t|
     t.string "motivation"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_06_28_114302) do
     t.string "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["year", "category_id"], name: "index_prizes_on_year_and_category_id", unique: true
   end
 
   add_foreign_key "awards", "laureates"
