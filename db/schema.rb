@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_102334) do
+ActiveRecord::Schema.define(version: 2021_06_28_110312) do
 
   create_table "categories", primary_key: "cid", id: { type: :string, limit: 64 }, force: :cascade do |t|
     t.string "name"
     t.string "short"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "laureates", force: :cascade do |t|
+    t.string "remote_id"
+    t.string "name"
+    t.string "link"
+    t.boolean "org"
+    t.boolean "person"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -1,0 +1,64 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe Laureate, type: :model do
+  before do
+    @laureate = described_class.new(
+      remote_id: 'test_id',
+      name: 'Test laureate',
+      link: 'http://example.org/nobel/test-laureate',
+      person: true
+    )
+  end
+
+  subject { @laureate }
+
+  it { should respond_to(:remote_id) }
+  it { should respond_to(:name) }
+  it { should respond_to(:link) }
+  it { should respond_to(:person) }
+
+  describe 'remote_id' do
+    context 'when blank' do
+      before { subject.remote_id = '' }
+
+      it { should_not be_valid }
+    end
+
+    context 'when nil' do
+      before { subject.remote_id = nil }
+
+      it { should_not be_valid }
+    end
+  end
+
+  describe 'person & org flag' do
+    context 'when both nil' do
+      before do
+        subject.person = nil
+        subject.org = nil
+      end
+
+      it { should_not be_valid }
+    end
+
+    context 'when both true' do
+      before do
+        subject.person = true
+        subject.org = true
+      end
+
+      it { should_not be_valid }
+    end
+
+    context 'when both false' do
+      before do
+        subject.person = false
+        subject.org = false
+      end
+
+      it { should_not be_valid }
+    end
+  end
+end
