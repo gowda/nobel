@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
-RSpec.describe Laureate, type: :model do
+describe Laureate, type: :model do
   before do
     @laureate = described_class.new(
       remote_id: 'test_id',

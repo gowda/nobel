@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
-RSpec.describe Category, type: :model do
+describe Category, type: :model do
   before do
     @category = Category.new(name: 'Test category', short: 'Test')
   end

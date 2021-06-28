@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
-RSpec.describe Award, type: :model do
+describe Award, type: :model do
   before do
     category = Category.create!(name: 'Test category', short: 'Test')
     prize = Prize.create!(
