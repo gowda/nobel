@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 ruby '~> 2.6.0'
 
+gem 'faraday', '~> 1.4.0'
 gem 'jbuilder', '~> 2.7'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.0'
@@ -18,6 +19,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rubocop', '~> 1.6', require: false
   gem 'rubocop-rails', require: false
+  gem 'webmock', '~> 3.13.0'
 end
 
 group :development do
