@@ -15,6 +15,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv', '~> 2.7.0'
   gem 'rack-proxy'
+  gem 'rspec-rails', '~> 5.0.0'
   gem 'rubocop', '~> 1.6', require: false
   gem 'rubocop-rails', require: false
 end
