@@ -9,6 +9,7 @@ describe FetchLaureatesJob do
     context 'when prizes not present' do
       pending 'it schedules fetch prizes job with flag to resume later'
     end
+
     pending 'it creates laureates'
     pending 'it schedules the next job'
   end

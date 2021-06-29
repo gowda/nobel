@@ -63,9 +63,9 @@ shared_examples 'event' do |name|
     end
 
     context "when '#{name}' present with date" do
-      let!(:location) { NobelPrize::Location.parse(attrs[name]['place']) }
-
       subject { described_class.parse(attrs) }
+
+      let!(:location) { NobelPrize::Location.parse(attrs[name]['place']) }
 
       it 'returns the location' do
         expect(subject.send(attr_name).city).to equal(location.city)

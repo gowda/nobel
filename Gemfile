@@ -18,7 +18,8 @@ group :development, :test do
   gem 'rack-proxy'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rubocop', '~> 1.6', require: false
-  gem 'rubocop-rails', require: false
+  gem 'rubocop-rails', '~> 2.11.0', require: false
+  gem 'rubocop-rspec', '~> 2.4.0', require: false
   gem 'webmock', '~> 3.13.0'
 end
 

@@ -1,99 +1,98 @@
 # frozen_string_literal: true
 
 describe Prize, type: :model do
-  before do
-    @category = Category.create!(name: 'Test category', short: 'Test')
-    @prize = Prize.new(
+  subject(:prize) do
+    described_class.new(
       year: '2020',
       amount: 420_420,
       link: 'http://example.org/nobel/2020',
-      category: @category
+      category: category
     )
   end
 
-  subject { @prize }
+  let!(:category) { Category.create!(name: 'Test category', short: 'Test') }
 
-  it { should respond_to(:year) }
-  it { should respond_to(:amount) }
-  it { should respond_to(:link) }
+  it { is_expected.to respond_to(:year) }
+  it { is_expected.to respond_to(:amount) }
+  it { is_expected.to respond_to(:link) }
 
   describe 'year' do
     context 'when blank' do
-      before { @prize.year = '' }
+      before { prize.year = '' }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'when nil' do
-      before { @prize.year = nil }
+      before { prize.year = nil }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
-    context 'uniqueness' do
-      before do
-        @prize.save!
-
-        @prize = Prize.new(
+    context 'when year is not unique' do
+      subject do
+        described_class.new(
           year: '2020',
           amount: 420_420,
           link: 'http://example.org/nobel/2020',
-          category: @category
+          category: category
         )
       end
 
-      subject { @prize }
+      before { prize.save! }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
   end
 
   describe 'amount' do
     context 'when blank' do
-      before { @prize.amount = '' }
+      before { prize.amount = '' }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'when nil' do
-      before { @prize.amount = nil }
+      before { prize.amount = nil }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'when floating point' do
-      before { @prize.amount = 240_240.24 }
+      before { prize.amount = 240_240.24 }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
   end
 
   describe 'link' do
     context 'when blank' do
-      before { @prize.link = '' }
+      before { prize.link = '' }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'when nil' do
-      before { @prize.link = nil }
+      before { prize.link = nil }
 
-      it { should be_valid }
+      it { is_expected.to be_valid }
     end
   end
 
   describe 'category' do
     context 'when nil' do
-      before { @prize.category_id = nil }
+      before { prize.category_id = nil }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
   end
 
   describe 'laureates' do
+    before { prize.save! }
+
     context 'when none present' do
-      it 'should be empty' do
-        expect(subject.laureates).to be_empty
+      it 'is empty' do
+        expect(prize.laureates).to be_empty
       end
     end
 
@@ -107,13 +106,13 @@ describe Prize, type: :model do
         )
         Award.create!(
           motivation: 'Test motivation',
-          prize: @prize,
+          prize: prize,
           laureate: laureate
         )
       end
 
-      it 'should not be empty' do
-        expect(subject.laureates).not_to be_empty
+      it 'is not empty' do
+        expect(prize.laureates).not_to be_empty
       end
     end
   end

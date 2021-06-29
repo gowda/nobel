@@ -1,21 +1,8 @@
 # frozen_string_literal: true
 
 describe Award, type: :model do
-  before do
-    category = Category.create!(name: 'Test category', short: 'Test')
-    prize = Prize.create!(
-      year: '2020',
-      amount: 420_420,
-      link: 'http://example.org/nobel/2020',
-      category: category
-    )
-    laureate = Laureate.create!(
-      remote_id: 'test_id',
-      name: 'Test laureate',
-      link: 'http://example.org/nobel/test-laureate',
-      person: true
-    )
-    @award = Award.new(
+  subject(:award) do
+    described_class.new(
       motivation: 'Test motivation',
       portion: '1/42',
       sort_order: 1,
@@ -24,48 +11,64 @@ describe Award, type: :model do
     )
   end
 
-  subject { @award }
+  let!(:category) { Category.create!(name: 'Test category', short: 'Test') }
+  let!(:prize) do
+    Prize.create!(
+      year: '2020',
+      amount: 420_420,
+      link: 'http://example.org/nobel/2020',
+      category: category
+    )
+  end
+  let!(:laureate) do
+    Laureate.create!(
+      remote_id: 'test_id',
+      name: 'Test laureate',
+      link: 'http://example.org/nobel/test-laureate',
+      person: true
+    )
+  end
 
-  it { should respond_to(:motivation) }
-  it { should respond_to(:portion) }
-  it { should respond_to(:sort_order) }
+  it { is_expected.to respond_to(:motivation) }
+  it { is_expected.to respond_to(:portion) }
+  it { is_expected.to respond_to(:sort_order) }
 
   describe 'motivation' do
     context 'when blank' do
-      before { subject.motivation = '' }
+      before { award.motivation = '' }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'when nil' do
-      before { subject.motivation = nil }
+      before { award.motivation = nil }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
   end
 
   describe 'portion' do
     context 'when blank' do
       before do
-        subject.portion = ''
-        subject.save!
-        subject.reload
+        award.portion = ''
+        award.save!
+        award.reload
       end
 
       it 'defaults to 1' do
-        expect(subject.portion).to eql('1')
+        expect(award.portion).to eql('1')
       end
     end
 
     context 'when nil' do
       before do
-        subject.portion = nil
-        subject.save!
-        subject.reload
+        award.portion = nil
+        award.save!
+        award.reload
       end
 
       it 'defaults to 1' do
-        expect(subject.portion).to eql('1')
+        expect(award.portion).to eql('1')
       end
     end
   end
@@ -73,38 +76,38 @@ describe Award, type: :model do
   describe 'sort_order' do
     context 'when blank' do
       before do
-        subject.sort_order = ''
-        subject.save!
-        subject.reload
+        award.sort_order = ''
+        award.save!
+        award.reload
       end
 
       it 'defaults to 1' do
-        expect(subject.sort_order).to eql(1)
+        expect(award.sort_order).to be(1)
       end
     end
 
     context 'when nil' do
       before do
-        subject.sort_order = nil
-        subject.save!
-        subject.reload
+        award.sort_order = nil
+        award.save!
+        award.reload
       end
 
       it 'defaults to 1' do
-        expect(subject.sort_order).to eql(1)
+        expect(award.sort_order).to be(1)
       end
     end
   end
 
   describe 'prize' do
-    before { subject.prize = nil }
+    before { award.prize = nil }
 
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 
   describe 'laureate' do
-    before { subject.laureate = nil }
+    before { award.laureate = nil }
 
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 end

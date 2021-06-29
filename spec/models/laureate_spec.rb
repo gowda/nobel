@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 describe Laureate, type: :model do
+  subject(:laureate) { described_class.new(attrs) }
+
   let!(:attrs) do
     {
       remote_id: 'test_id',
@@ -10,73 +12,66 @@ describe Laureate, type: :model do
     }
   end
 
-  before do
-    @laureate = described_class.new(attrs)
-  end
-
-  subject { @laureate }
-
-  it { should respond_to(:remote_id) }
-  it { should respond_to(:name) }
-  it { should respond_to(:link) }
-  it { should respond_to(:person) }
+  it { is_expected.to respond_to(:remote_id) }
+  it { is_expected.to respond_to(:name) }
+  it { is_expected.to respond_to(:link) }
+  it { is_expected.to respond_to(:person) }
 
   describe 'remote_id' do
     context 'when blank' do
-      before { subject.remote_id = '' }
+      before { laureate.remote_id = '' }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'when nil' do
-      before { subject.remote_id = nil }
+      before { laureate.remote_id = nil }
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
-    context 'uniqueness' do
-      before do
-        @laureate.save!
-        @laureate = described_class.new(attrs)
-      end
+    context 'when already exists' do
+      subject { described_class.new(attrs) }
 
-      it { should_not be_valid }
+      before { laureate.save! }
+
+      it { is_expected.not_to be_valid }
     end
   end
 
   describe 'person & org flag' do
     context 'when both nil' do
       before do
-        subject.person = nil
-        subject.org = nil
+        laureate.person = nil
+        laureate.org = nil
       end
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'when both true' do
       before do
-        subject.person = true
-        subject.org = true
+        laureate.person = true
+        laureate.org = true
       end
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'when both false' do
       before do
-        subject.person = false
-        subject.org = false
+        laureate.person = false
+        laureate.org = false
       end
 
-      it { should_not be_valid }
+      it { is_expected.not_to be_valid }
     end
   end
 
   describe 'prize' do
     context 'when none present' do
-      it 'should be empty' do
-        expect(subject.prizes).to be_empty
+      it 'is empty' do
+        expect(laureate.prizes).to be_empty
       end
     end
 
@@ -92,12 +87,12 @@ describe Laureate, type: :model do
         Award.create!(
           motivation: 'Test motivation',
           prize: prize,
-          laureate: @laureate
+          laureate: laureate
         )
       end
 
-      it 'should not be empty' do
-        expect(subject.prizes).not_to be_empty
+      it 'is not empty' do
+        expect(laureate.prizes).not_to be_empty
       end
     end
   end

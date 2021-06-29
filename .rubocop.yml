@@ -1,4 +1,6 @@
-require: rubocop-rails
+require:
+  - rubocop-rails
+  - rubocop-rspec
 
 # as recommended by first run of rubocop
 Lint/DuplicateBranch: # (new in 1.3)
