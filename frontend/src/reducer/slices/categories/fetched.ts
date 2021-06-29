@@ -1,15 +1,14 @@
 import { AnyAction } from 'redux';
-import { CATEGORIES_RECEIVED } from './action-types';
-import { Category } from './types';
+import { CATEGORIES_RECEIVED } from '../../action-types';
 
-type State = Category[];
+type State = boolean;
 
-const initialState: State = [];
+const initialState: State = false;
 
 export default (state: State = initialState, action: AnyAction): State => {
   switch (action.type) {
     case CATEGORIES_RECEIVED:
-      return action.payload;
+      return true;
     default:
       return state;
   }

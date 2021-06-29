@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import categories from './categories';
+import categories from './slices/categories';
 import fetching from './fetching';
 import meta from './meta';
 import laureates from './laureates';

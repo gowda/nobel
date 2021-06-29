@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Category } from '../reducer/types';
 
@@ -8,37 +8,26 @@ import BlankMessage from './blank-message';
 import CardList from './card-list';
 
 interface Props {
-  categories: Category[];
-  fetch: () => Promise<any>;
+  fetched: boolean;
+  fetching: boolean;
+  error: string | null;
+  data: Category[];
+  fetch: () => void;
 }
 
-export default ({ categories, fetch }: Props) => {
-  const [fetched, setFetched] = useState<boolean>(false);
-  const [fetching, setFetching] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
+export default ({ fetched, fetching, error, data, fetch }: Props) => {
   useEffect(() => {
     if (!fetched && !fetching && !error) {
-      setFetching(true);
-
-      fetch()
-        .then(() => setFetched(true))
-        .then(() => setFetching(false))
-        .catch(() => {
-          setFetching(false);
-          setError('Oops! Something went wrong. Failed to fetch categories');
-        });
+      fetch();
     }
   }, [fetched, fetching, error]);
 
   return (
     <>
       {fetching && <LoadingIndicator />}
-      {error && <ErrorMessage message={error} onRetry={() => setError(null)} />}
-      {fetched && categories.length === 0 && <BlankMessage />}
-      {fetched && categories.length !== 0 && (
-        <CardList categories={categories} />
-      )}
+      {error && <ErrorMessage message={error} onRetry={fetch} />}
+      {fetched && data.length === 0 && <BlankMessage />}
+      {fetched && data.length !== 0 && <CardList categories={data} />}
     </>
   );
 };
