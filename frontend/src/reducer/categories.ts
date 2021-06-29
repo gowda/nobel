@@ -1,14 +1,15 @@
-import merge from '../utils/merge';
-import { Category, RECEIVED_LAUREATES } from './types';
+import { AnyAction } from 'redux';
+import { CATEGORIES_RECEIVED } from './action-types';
+import { Category } from './types';
 
 type State = Category[];
 
 const initialState: State = [];
 
-export default (state: State = initialState, action: any): State => {
+export default (state: State = initialState, action: AnyAction): State => {
   switch (action.type) {
-    case RECEIVED_LAUREATES:
-      return merge(state, action.payload.categories);
+    case CATEGORIES_RECEIVED:
+      return action.payload;
     default:
       return state;
   }

@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Progress from './progress';
-import Overview from './overview';
+import Overview from './containers/overview';
 import Details from './details';
 
 import fetch from './fetch';
