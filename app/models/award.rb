@@ -5,7 +5,7 @@ class Award < ApplicationRecord
   validates :portion, format: { with: %r{\A\d+(/\d+)?\z} }, allow_blank: true
   validates :sort_order, numericality: { only_integer: true }, allow_blank: true
 
-  belongs_to :laureate
+  belongs_to :laureate, counter_cache: :prize_count
   belongs_to :prize, counter_cache: :laureate_count
 
   before_save :set_default_portion, if: -> { portion.blank? }
