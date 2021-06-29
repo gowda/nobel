@@ -8,6 +8,8 @@ class Category < ApplicationRecord
   validates :name, presence: true, allow_nil: false
   validates :short, presence: true, allow_nil: false
 
+  has_many :prizes, dependent: :destroy
+
   private
 
   def assign_id

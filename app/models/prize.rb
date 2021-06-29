@@ -9,7 +9,7 @@ class Prize < ApplicationRecord
   validates :amount, numericality: { only_integer: true }
   validates :link, presence: true, allow_nil: true
 
-  belongs_to :category
+  belongs_to :category, counter_cache: :prize_count
 
   has_many :awards, dependent: :destroy
   has_many :laureates, through: :awards
