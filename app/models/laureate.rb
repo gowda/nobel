@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Laureate < ApplicationRecord
-  validates :remote_id, presence: true, allow_blank: false
+  validates :remote_id, presence: true, allow_blank: false, uniqueness: true
   validates :name, presence: true, allow_blank: false
   validates :link, presence: true, allow_nil: true
   validate :org_or_person_is_true

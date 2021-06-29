@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_195329) do
+ActiveRecord::Schema.define(version: 2021_06_29_065909) do
 
   create_table "awards", force: :cascade do |t|
     t.string "motivation"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_06_28_195329) do
     t.boolean "person"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["remote_id"], name: "index_laureates_on_remote_id", unique: true
   end
 
   create_table "prizes", force: :cascade do |t|

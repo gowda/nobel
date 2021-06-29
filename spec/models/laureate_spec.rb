@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
 describe Laureate, type: :model do
-  before do
-    @laureate = described_class.new(
+  let!(:attrs) do
+    {
       remote_id: 'test_id',
       name: 'Test laureate',
       link: 'http://example.org/nobel/test-laureate',
       person: true
-    )
+    }
+  end
+
+  before do
+    @laureate = described_class.new(attrs)
   end
 
   subject { @laureate }
@@ -26,6 +30,15 @@ describe Laureate, type: :model do
 
     context 'when nil' do
       before { subject.remote_id = nil }
+
+      it { should_not be_valid }
+    end
+
+    context 'uniqueness' do
+      before do
+        @laureate.save!
+        @laureate = described_class.new(attrs)
+      end
 
       it { should_not be_valid }
     end
