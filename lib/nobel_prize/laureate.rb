@@ -18,6 +18,10 @@ module NobelPrize
       source['wikipedia']['english']
     end
 
+    def awards
+      source['nobelPrizes'].map { |attrs| Award.parse(attrs) }
+    end
+
     def org?
       !source['orgName'].nil?
     end
@@ -44,6 +48,16 @@ module NobelPrize
       return org.send(name) if org?
 
       person.send(name)
+    end
+
+    def to_h
+      {
+        remote_id: id,
+        name: name,
+        person: person?,
+        org: org?,
+        link: link
+      }
     end
 
     def inspect

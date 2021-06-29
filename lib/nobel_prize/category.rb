@@ -10,6 +10,13 @@ module NobelPrize
       source['category']['en']
     end
 
+    def to_h
+      {
+        name: name,
+        short: short
+      }
+    end
+
     def inspect
       "<#{self.class.name}:0x#{object_id.to_s(16)} short=\"#{short}\">"
     end
