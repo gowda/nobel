@@ -11,8 +11,12 @@ export interface Laureates {
 
 export interface Category {
   id: string;
+  name: string;
+  short: string;
   label: string;
   count: number;
+  prizeCount: number;
+  laureateCount: number;
   laureates: Laureate[];
 }
 

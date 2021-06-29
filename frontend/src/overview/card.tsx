@@ -1,18 +1,26 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import { Category } from '../reducer/types';
 
-interface Props {
-  id: string;
-  label: string;
-  count: number;
-}
+type Props = Category;
 
-export default ({ id, label, count }: Props) => (
-  <Link to={`/list?tab=${id}`} className='card mt-4' style={{ width: '18rem' }}>
+export default ({ id, short, laureateCount, prizeCount }: Props) => (
+  <div className='card h-100'>
     <div className='card-body'>
-      <h5 className='card-title'>{label}</h5>
-      <h1 className='card-text'>{count}</h1>
+      <Link to={`/list?tab=${id}`}>
+        <h5 className='card-title font-weight-light'>{short}</h5>
+      </Link>
+      <div className='row justify-content-start'>
+        <div className='col-auto pr-0'>
+          <h4 className='card-text font-weight-light'>{prizeCount} prizes</h4>
+        </div>
+        <div className='col-auto'>
+          <h4 className='card-text font-weight-light'>
+            {laureateCount} laureates
+          </h4>
+        </div>
+      </div>
     </div>
-  </Link>
+  </div>
 );

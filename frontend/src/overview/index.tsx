@@ -1,31 +1,48 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-import Card from './card';
-import { State } from '../reducer';
 import { Category } from '../reducer/types';
 
-interface Props {
-  categories: Category[];
-}
+import LoadingIndicator from './loading-indicator';
+import ErrorMessage from './error-message';
+import BlankMessage from './blank-message';
+import CardList from './card-list';
 
-const Component = ({ categories }: Props) => {
+const API_ENDPOINT = 'http://localhost:4242/api/v1';
+
+export default () => {
+  const [fetched, setFetched] = useState<boolean>(false);
+  const [fetching, setFetching] = useState<boolean>(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!fetched && !fetching && !error) {
+      setFetching(true);
+
+      axios
+        .get<Category[]>(`${API_ENDPOINT}/categories`, {
+          headers: { Accept: 'application/json' },
+        })
+        .then((response) => response.data)
+        .then((data) => setCategories(data))
+        .then(() => setFetched(true))
+        .then(() => setFetching(false))
+        .catch(() => {
+          setFetching(false);
+          setError('Oops! Something went wrong. Failed to fetch categories');
+        });
+    }
+  }, [fetched, fetching, error]);
+
   return (
-    <div className='row align-items-stretch justify-content-center'>
-      {categories.map(({ id, label, count }) => (
-        <div className='col' key={label}>
-          <Card id={id} label={label} count={count} />
-        </div>
-      ))}
-    </div>
+    <>
+      {fetching && <LoadingIndicator />}
+      {error && <ErrorMessage message={error} onRetry={() => setError(null)} />}
+      {fetched && categories.length === 0 && <BlankMessage />}
+      {fetched && categories.length !== 0 && (
+        <CardList categories={categories} />
+      )}
+    </>
   );
 };
-
-const mapState = (state: State): { categories: Category[] } => {
-  const { categories } = state;
-  return {
-    categories,
-  };
-};
-
-export default connect(mapState)(Component);
