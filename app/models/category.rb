@@ -13,6 +13,6 @@ class Category < ApplicationRecord
   private
 
   def assign_id
-    self.id = short.downcase
+    self.id = short.strip.downcase.gsub(/\s+/, '-')
   end
 end
