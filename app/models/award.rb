@@ -6,7 +6,7 @@ class Award < ApplicationRecord
   validates :sort_order, numericality: { only_integer: true }, allow_blank: true
 
   belongs_to :laureate
-  belongs_to :prize
+  belongs_to :prize, counter_cache: :laureate_count
 
   before_save :set_default_portion, if: -> { portion.blank? }
   before_save :set_default_sort_order, if: -> { sort_order.blank? }
