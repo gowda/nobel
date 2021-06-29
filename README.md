@@ -1,5 +1,6 @@
 # nobel-prizes
 ![](https://github.com/gowda/nobel-prizes/workflows/rubocop/badge.svg)
+![](https://github.com/gowda/nobel-prizes/workflows/rspec/badge.svg)
 ![](https://github.com/gowda/nobel-prizes/workflows/eslint/badge.svg)
 
 light-weight web interface for browsing through nobel prize winners list
