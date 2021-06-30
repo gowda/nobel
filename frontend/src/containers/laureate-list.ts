@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { State } from '../reducer';
 import Component from '../components/laureate-list';
-import {
-  LAUREATES_FETCHING,
-  LAUREATES_FETCH_ERROR,
-  LAUREATES_RECEIVED,
-} from '../reducer/action-types';
 import { Laureate } from '../types';
+import {
+  fetchingLaureates,
+  fetchLaureatesError,
+  receivedLaureates,
+} from '../reducer/actions';
 
 const API_ENDPOINT = 'http://localhost:4242/api/v1';
 
@@ -23,7 +23,7 @@ const mapState = ({ laureates }: State) => ({
 
 const mapDispatch = (dispatch: Dispatch, { category }: OwnProps) => ({
   fetch: () => {
-    dispatch({ type: LAUREATES_FETCHING });
+    dispatch(fetchingLaureates());
 
     axios
       .get<Laureate[]>(`${API_ENDPOINT}/laureates`, {
@@ -31,13 +31,8 @@ const mapDispatch = (dispatch: Dispatch, { category }: OwnProps) => ({
         headers: { Accept: 'application/json' },
       })
       .then((response) => response.data)
-      .then((data) => dispatch({ type: LAUREATES_RECEIVED, payload: data }))
-      .catch(() =>
-        dispatch({
-          type: LAUREATES_FETCH_ERROR,
-          payload: 'Oops! Something went wrong. Failed to fetch laureates',
-        })
-      );
+      .then((data) => dispatch(receivedLaureates(data)))
+      .catch(() => dispatch(fetchLaureatesError()));
   },
 });
 

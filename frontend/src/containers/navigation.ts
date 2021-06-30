@@ -4,12 +4,12 @@ import { Dispatch } from 'redux';
 import { State } from '../reducer';
 
 import Component from '../components/navigation';
-import { NAVIGATED } from '../reducer/action-types';
+import { navigated } from '../reducer/actions';
 
 const mapState = ({ categories }: State) => ({ categories: categories.data });
 
 const mapDispatch = (dispatch: Dispatch) => ({
-  onChange: () => dispatch({ type: NAVIGATED }),
+  onChange: () => dispatch(navigated()),
 });
 
 export default connect(mapState, mapDispatch)(Component);
