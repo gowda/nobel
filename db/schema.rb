@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_30_081648) do
+ActiveRecord::Schema.define(version: 2021_06_30_161308) do
 
   create_table "awards", force: :cascade do |t|
     t.string "motivation"
@@ -42,7 +42,34 @@ ActiveRecord::Schema.define(version: 2021_06_30_081648) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "prize_count"
     t.string "thumbnail_url"
+    t.string "type"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "gender"
+    t.string "native_name"
+    t.string "acronym"
+    t.integer "birth_place_id"
+    t.integer "death_place_id"
+    t.integer "founded_place_id"
+    t.string "birth_date_string"
+    t.datetime "birth_date"
+    t.string "death_date_string"
+    t.datetime "death_date"
+    t.string "founded_date_string"
+    t.datetime "founded_date"
     t.index ["remote_id"], name: "index_laureates_on_remote_id", unique: true
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.string "city"
+    t.string "city_then"
+    t.string "country"
+    t.string "country_then"
+    t.string "continent"
+    t.string "wiki_link"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "prizes", force: :cascade do |t|
@@ -58,5 +85,8 @@ ActiveRecord::Schema.define(version: 2021_06_30_081648) do
 
   add_foreign_key "awards", "laureates"
   add_foreign_key "awards", "prizes"
+  add_foreign_key "laureates", "locations", column: "birth_place_id"
+  add_foreign_key "laureates", "locations", column: "death_place_id"
+  add_foreign_key "laureates", "locations", column: "founded_place_id"
   add_foreign_key "prizes", "categories", primary_key: "cid"
 end

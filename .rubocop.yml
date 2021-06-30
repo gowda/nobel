@@ -84,3 +84,7 @@ Style/Documentation:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'app/views/*/*.jbuilder'

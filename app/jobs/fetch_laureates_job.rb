@@ -9,8 +9,38 @@ class FetchLaureatesJob < ApplicationJob
   end
 
   def create_laureate(attrs)
-    laureate = Laureate.create!(attrs.to_h)
+    laureate = if attrs.person?
+                 create_person(attrs)
+               else
+                 create_org(attrs)
+               end
+
     attrs.awards.each { |award_attrs| create_award(award_attrs, laureate) }
+  end
+
+  def create_person(attrs)
+    person = Person.find_or_create_by!(attrs.to_h)
+
+    location = Location.find_or_create_by!(attrs.birth_place.to_h)
+    person.update(birth_place: location)
+
+    if attrs.death_place.present?
+      location = Location.find_or_create_by!(attrs.death_place.to_h)
+      person.update(death_place: location)
+    end
+
+    person
+  end
+
+  def create_org(attrs)
+    org = Org.find_or_create_by!(attrs.to_h)
+
+    if attrs.founded_place.present?
+      location = Location.find_or_create_by!(attrs.founded_place.to_h)
+      org.update(founded_place: location)
+    end
+
+    org
   end
 
   def create_award(attrs, laureate)

@@ -48,5 +48,15 @@ module NobelPrize
 
       Location.parse(source['death']['place'])
     end
+
+    def to_h
+      {
+        first_name: first_name,
+        last_name: last_name,
+        gender: gender,
+        birth_date_string: birth_date,
+        death_date_string: death_date
+      }
+    end
   end
 end

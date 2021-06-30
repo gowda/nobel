@@ -3,10 +3,14 @@
 module NobelPrize
   class Location < AbstractObject
     def city_then
+      return nil if source['city'].nil?
+
       source['city']['en']
     end
 
     def country_then
+      return nil if source['country'].nil?
+
       source['country']['en']
     end
 
@@ -38,6 +42,18 @@ module NobelPrize
       return nil if source['cityNow'].nil? || source['cityNow']['sameAs'].nil?
 
       source['cityNow']['sameAs'].last
+    end
+
+    def to_h
+      {
+        name: name,
+        city: city,
+        city_then: city_then,
+        country: country,
+        country_then: country_then,
+        continent: continent,
+        wiki_link: wiki_link
+      }
     end
 
     def inspect

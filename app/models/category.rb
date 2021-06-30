@@ -9,7 +9,7 @@ class Category < ApplicationRecord
   validates :short, presence: true, allow_nil: false
 
   has_many :prizes, dependent: :destroy
-  has_many :laureates, through: :prizes
+  has_many :laureates, -> { distinct }, through: :prizes
 
   private
 

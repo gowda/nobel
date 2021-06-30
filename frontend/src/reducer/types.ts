@@ -1,9 +1,42 @@
 export interface Laureate {
+  id: string;
   name: string;
   thumbnailURL: string;
   awards: string[];
+  person: boolean;
+  org: boolean;
+}
 
-  [key: string]: any;
+export interface Location {
+  name: string;
+  city: string;
+  country: string;
+  continent: string;
+}
+
+export interface Person extends Laureate {
+  firstName: string;
+  lastName: string;
+  birth: {
+    dateStr: string;
+    date?: Date;
+    place: Location;
+  };
+  death?: {
+    dateStr: string;
+    date?: Date;
+    place: Location;
+  };
+}
+
+export interface Org extends Laureate {
+  nativeName: string;
+  acronym: string;
+  founded: {
+    dateStr: string;
+    date?: Date;
+    place: Location;
+  };
 }
 
 export interface Laureates {

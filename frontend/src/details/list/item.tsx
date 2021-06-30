@@ -22,7 +22,7 @@ export default ({ item }: Props) => (
       </div>
       <div className='col-9'>
         {item.awards.map((award: any) => (
-          <div className='row'>
+          <div className='row' key={award.year}>
             <div className='col-1 pr-0'>
               <h6 className='font-weight-light'>{award.year}</h6>
             </div>

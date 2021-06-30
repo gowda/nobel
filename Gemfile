@@ -7,10 +7,10 @@ ruby '~> 2.6.0'
 gem 'faraday', '~> 1.4.0'
 gem 'faraday_middleware', '~> 1.0.0'
 gem 'jbuilder', '~> 2.7'
+gem 'nokogiri', '~> 1.11.0'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.0'
 gem 'sqlite3', '~> 1.4'
-gem 'nokogiri', '~> 1.11.0'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 

@@ -20,7 +20,7 @@ export default ({ current, categories, onChange }: Props) => {
   return (
     <div className='navigation'>
       {categories.map(({ id, short }) => (
-        <Item id={id} name={short} active={active === id} />
+        <Item key={id} id={id} name={short} active={active === id} />
       ))}
     </div>
   );

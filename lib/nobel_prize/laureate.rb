@@ -57,7 +57,7 @@ module NobelPrize
         person: person?,
         org: org?,
         link: link
-      }
+      }.merge(person? ? person.to_h : org.to_h)
     end
 
     def inspect

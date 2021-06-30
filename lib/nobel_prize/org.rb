@@ -27,5 +27,13 @@ module NobelPrize
 
       Location.parse(source['founded']['place'])
     end
+
+    def to_h
+      {
+        native_name: native_name,
+        acronym: acronym,
+        founded_date_string: founded_date
+      }
+    end
   end
 end
