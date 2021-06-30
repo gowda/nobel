@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Card from './card';
-import { Category } from '../types';
+import { Category } from '../../types';
 
 interface Props {
   categories: Category[];

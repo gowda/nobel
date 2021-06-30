@@ -10,7 +10,7 @@ import {
 
 import { Category } from '../types';
 
-import Component from '../overview';
+import Component from '../components/overview';
 
 const API_ENDPOINT = 'http://localhost:4242/api/v1';
 

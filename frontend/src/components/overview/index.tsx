@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
-import { Category } from '../types';
+import { Category } from '../../types';
 
-import LoadingIndicator from '../components/loading-indicator';
-import ErrorMessage from '../components/error-message';
+import LoadingIndicator from '../loading-indicator';
+import ErrorMessage from '../error-message';
 import BlankMessage from './blank-message';
 import CardList from './card-list';
 
