@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { Category } from '../reducer/types';
+import { Category } from '../types';
 
 type Props = Category;
 

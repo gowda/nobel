@@ -49,10 +49,6 @@ export interface Org extends Laureate {
   };
 }
 
-export interface Laureates {
-  [id: string]: Laureate;
-}
-
 export interface Category {
   id: string;
   name: string;
@@ -61,11 +57,4 @@ export interface Category {
   count: number;
   prizeCount: number;
   laureateCount: number;
-  laureates: Laureate[];
 }
-
-export const FETCHING_LAUREATES = 'FETCHING_LAUREATES';
-export const RECEIVED_COUNT = 'RECEIVED_COUNT';
-export const RECEIVED_LAUREATES = 'RECEIVED_LAUREATES';
-export const DONE_FETCHING = 'DONE_FETCHING';
-export const TAB_CHANGED = 'TAB_CHANGED';

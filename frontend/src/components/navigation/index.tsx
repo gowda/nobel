@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Category } from '../../reducer/types';
+import { Category } from '../../types';
 
 import Item from './item';
 

@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { LAUREATES_RECEIVED, NAVIGATED } from '../../action-types';
-import { Laureate } from '../../types';
+import { Laureate } from '../../../types';
 
 type State = Laureate[];
 

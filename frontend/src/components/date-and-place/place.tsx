@@ -1,5 +1,5 @@
 import React from 'react';
-import { Location } from '../../reducer/types';
+import { Location } from '../../types';
 
 type Props = Location;
 

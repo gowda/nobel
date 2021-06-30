@@ -8,15 +8,6 @@ import reducer, { State } from './reducer';
 import App from './app';
 
 const initialState: State = {
-  fetching: {
-    required: true,
-    happening: false,
-    complete: false,
-  },
-  meta: {
-    total: 0,
-    fetched: 0,
-  },
   laureates: {
     fetched: false,
     fetching: false,

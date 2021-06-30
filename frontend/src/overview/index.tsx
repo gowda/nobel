@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Category } from '../reducer/types';
+import { Category } from '../types';
 
 import LoadingIndicator from '../components/loading-indicator';
 import ErrorMessage from '../components/error-message';

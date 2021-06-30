@@ -1,5 +1,5 @@
 import React from 'react';
-import { Location } from '../../reducer/types';
+import { Location } from '../../types';
 
 import Date from './date';
 import Place from './place';

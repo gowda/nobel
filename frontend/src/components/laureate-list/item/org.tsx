@@ -1,5 +1,5 @@
 import React from 'react';
-import { Org } from '../../../reducer/types';
+import { Org } from '../../../types';
 
 import DateAndPlace from '../../date-and-place';
 

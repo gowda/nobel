@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Laureate } from '../../reducer/types';
+import { Laureate } from '../../types';
 
 import LoadingIndicator from '../loading-indicator';
 import ErrorMessage from '../error-message';

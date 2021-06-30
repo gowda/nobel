@@ -8,7 +8,7 @@ import {
   CATEGORIES_RECEIVED,
 } from '../reducer/action-types';
 
-import { Category } from '../reducer/types';
+import { Category } from '../types';
 
 import Component from '../overview';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Award } from '../../reducer/types';
+import { Award } from '../../types';
 
 type Props = Award;
 

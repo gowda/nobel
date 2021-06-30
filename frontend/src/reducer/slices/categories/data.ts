@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { CATEGORIES_RECEIVED } from '../../action-types';
-import { Category } from '../../types';
+import { Category } from '../../../types';
 
 type State = Category[];
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Laureate, Org, Person } from '../../../reducer/types';
+import { Laureate, Org, Person } from '../../../types';
 import AwardList from '../../award-list';
 import PersonItem from './person';
 import OrgItem from './org';

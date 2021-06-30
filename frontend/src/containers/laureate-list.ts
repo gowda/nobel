@@ -9,7 +9,7 @@ import {
   LAUREATES_FETCH_ERROR,
   LAUREATES_RECEIVED,
 } from '../reducer/action-types';
-import { Laureate } from '../reducer/types';
+import { Laureate } from '../types';
 
 const API_ENDPOINT = 'http://localhost:4242/api/v1';
 
