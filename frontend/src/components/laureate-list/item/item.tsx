@@ -1,5 +1,9 @@
 import React from 'react';
-import { Laureate } from '../../reducer/types';
+
+import { Laureate, Org, Person } from '../../../reducer/types';
+import AwardList from '../../award-list';
+import PersonItem from './person';
+import OrgItem from './org';
 
 interface Props {
   item: Laureate;
@@ -21,16 +25,12 @@ export default ({ item }: Props) => (
         />
       </div>
       <div className='col-9'>
-        {item.awards.map((award: any) => (
-          <div className='row' key={award.year}>
-            <div className='col-1 pr-0'>
-              <h6 className='font-weight-light'>{award.year}</h6>
-            </div>
-            <div className='col-11'>
-              <p className='font-weight-light'>{award.motivation}</p>
-            </div>
-          </div>
-        ))}
+        {item.person ? (
+          <PersonItem {...(item as Person)} />
+        ) : (
+          <OrgItem {...(item as Org)} />
+        )}
+        <AwardList items={item.awards} />
       </div>
     </div>
   </li>

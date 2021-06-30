@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { State } from '../reducer';
 
-import Component from '../details/navigation';
+import Component from '../components/navigation';
 import { NAVIGATED } from '../reducer/action-types';
 
 const mapState = ({ categories }: State) => ({ categories: categories.data });

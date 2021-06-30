@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Navigation from '../containers/navigation';
-import List from '../containers/list';
+import LaureateList from '../containers/laureate-list';
 
 interface Props {
   category: string;
@@ -13,7 +13,7 @@ export default ({ category }: Props) => (
       <Navigation current={category} />
     </div>
     <div className='col-9'>
-      {category ? <List category={category} /> : <h4>Content goes here</h4>}
+      <LaureateList category={category} />
     </div>
   </div>
 );

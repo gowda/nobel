@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Laureate } from '../../reducer/types';
 
-import LoadingIndicator from '../../components/loading-indicator';
-import ErrorMessage from '../../components/error-message';
-import Item from './item';
+import LoadingIndicator from '../loading-indicator';
+import ErrorMessage from '../error-message';
+import Item from './item/item';
 
 interface Props {
   fetched: boolean;

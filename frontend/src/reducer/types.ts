@@ -1,8 +1,17 @@
+export interface Award {
+  year: string;
+  motivation: string;
+  category: {
+    name: string;
+    short: string;
+  };
+}
+
 export interface Laureate {
   id: string;
   name: string;
   thumbnailURL: string;
-  awards: string[];
+  awards: Award[];
   person: boolean;
   org: boolean;
 }
@@ -17,6 +26,7 @@ export interface Location {
 export interface Person extends Laureate {
   firstName: string;
   lastName: string;
+  gender: string;
   birth: {
     dateStr: string;
     date?: Date;

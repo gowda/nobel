@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { Dispatch } from 'redux';
 import { State } from '../reducer';
-import Component from '../details/list';
+import Component from '../components/laureate-list';
 import {
   LAUREATES_FETCHING,
   LAUREATES_FETCH_ERROR,
