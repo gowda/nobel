@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default () => (
+interface Props {
+  message: string;
+}
+
+export default ({ message }: Props) => (
   <div className='row align-items-center justify-content-center mt-4 mb-4'>
     <div className='col-auto'>
       <div className='spinner-border text-secondary' role='status'>
@@ -8,7 +12,7 @@ export default () => (
       </div>
     </div>
     <div className='col-auto'>
-      <h2 className='text-muted font-weight-light'>Fetching categories...</h2>
+      <h2 className='text-muted font-weight-light'>{message}</h2>
     </div>
   </div>
 );

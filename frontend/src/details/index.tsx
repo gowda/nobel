@@ -1,41 +1,19 @@
-/* eslint-disable no-nested-ternary */
 import React from 'react';
-import { connect } from 'react-redux';
 
-import Tabs from './tabs';
-import { State } from '../reducer';
-import { Laureate } from '../reducer/types';
-import List from './list';
+import Navigation from '../containers/navigation';
+import List from '../containers/list';
 
-interface OwnProps {
-  selected: string;
+interface Props {
+  category: string;
 }
 
-interface StateProps {
-  items: Laureate[];
-}
-
-type Props = OwnProps & StateProps;
-
-const Component = ({ items }: Props) => {
-  return (
-    <>
-      <Tabs />
-      <div className='row mt-4'>
-        <div className='col-12'>
-          <List items={items} />
-        </div>
-      </div>
-    </>
-  );
-};
-
-const mapState = (state: State, { selected }: OwnProps): StateProps => {
-  const { categories } = state;
-
-  return {
-    items: categories.find((c) => c.id === selected)!.laureates,
-  };
-};
-
-export default connect(mapState)(Component);
+export default ({ category }: Props) => (
+  <div className='row mt-4'>
+    <div className='col-3'>
+      <Navigation current={category} />
+    </div>
+    <div className='col-9'>
+      {category ? <List category={category} /> : <h4>Content goes here</h4>}
+    </div>
+  </div>
+);

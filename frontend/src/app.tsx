@@ -38,7 +38,7 @@ const Component = ({ meta, fetching, onFetch }: Props) => {
               const params = new URLSearchParams(location.search);
               const selected = params.get('tab')!;
 
-              return <Details selected={selected} />;
+              return <Details category={selected} />;
             }}
           />
           <Route path='/'>

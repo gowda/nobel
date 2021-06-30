@@ -17,20 +17,31 @@ const initialState: State = {
     total: 0,
     fetched: 0,
   },
-  laureates: {},
-  categories: [],
+  laureates: {
+    fetched: false,
+    fetching: false,
+    error: null,
+    data: [],
+  },
+  categories: {
+    fetched: false,
+    fetching: false,
+    error: null,
+    data: [],
+  },
 };
 
 const stateString = window.localStorage.getItem('state');
 const state = stateString ? JSON.parse(stateString) : initialState;
 
-const localStorageMiddleware: Middleware<{}, State> = ({ getState }) => (
-  next
-) => (action: any) => {
-  const result = next(action);
-  window.localStorage.setItem('state', JSON.stringify(getState()));
-  return result;
-};
+const localStorageMiddleware: Middleware<{}, State> =
+  ({ getState }) =>
+  (next) =>
+  (action: any) => {
+    const result = next(action);
+    window.localStorage.setItem('state', JSON.stringify(getState()));
+    return result;
+  };
 
 const store = createStore(
   reducer,
