@@ -12,6 +12,18 @@ describe FetchLaureatesJob do
 
     pending 'it creates laureates'
     pending 'it schedules the next job'
+
+    context 'when laureate has same birth & death place' do
+      pending 'it creates a single location'
+    end
+
+    context 'when laureate has different birth & death place' do
+      pending 'it creates two locations'
+    end
+
+    context 'when place is shared location for birth, death & founding of different laureates' do
+      pending 'it creates a single location'
+    end
   end
 
   context 'when response does not contain content' do

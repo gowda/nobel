@@ -56,4 +56,22 @@ describe NobelPrize::Client do
       end
     end
   end
+
+  describe 'thumbnail' do
+    context 'when has figure' do
+      pending 'it returns the first figure found'
+    end
+
+    context 'when has picture' do
+      pending 'it returns the first picture found'
+    end
+
+    context 'when both figure & picture exist' do
+      pending 'it returns the first picture found'
+    end
+
+    context 'when both figure & picture are missing' do
+      pending 'it returns nil'
+    end
+  end
 end
