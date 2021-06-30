@@ -23,12 +23,36 @@ module NobelPrize
       raise NetworkError, e.message
     end
 
+    def thumbnail(id)
+      response = conn.get("https://www.nobelprize.org/laureate/#{id}")
+
+      return parsed_pictures(response).first if parsed_pictures(response).present?
+
+      parsed_figures(response).first
+    end
+
+    def parsed_pictures(response)
+      Nokogiri::HTML.parse(response.body).css('article.facts picture source').map do |s|
+        s['data-srcset']
+      end
+    end
+
+    def parsed_figures(response)
+      Nokogiri::HTML.parse(response.body).css('article.result figure img').map do |s|
+        s['src']
+      end
+    end
+
     def self.prizes(offset = 0)
       instance.prizes(offset)
     end
 
     def self.laureates(offset = 0)
       instance.laureates(offset)
+    end
+
+    def self.thumbnail(id)
+      instance.thumbnail(id)
     end
 
     def self.instance
@@ -51,6 +75,7 @@ module NobelPrize
         headers: { 'Content-Type' => 'application/json' }
       ) do |f|
         f.use Faraday::Response::RaiseError
+        f.use FaradayMiddleware::FollowRedirects
       end
     end
   end

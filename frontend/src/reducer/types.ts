@@ -1,5 +1,6 @@
 export interface Laureate {
   name: string;
+  thumbnailURL: string;
   awards: string[];
 
   [key: string]: any;

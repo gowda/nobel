@@ -1,5 +1,7 @@
 json.array! @laureates do |laureate|
   json.extract! laureate, :name
+  json.thumbnailURL laureate.thumbnail_url
+
   if laureate.person?
     json.gender ['male', 'female'].sample
   end
